@@ -1,18 +1,25 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Background } from './background.js'
-import { Tata } from './tata.js'
+import { Taylor } from './taylor.js'
+import { Brokenheart } from './brokenheart.js'
+import { Ground } from './ground.js'
 
 export class Game extends Engine {
 
     constructor() {
-        super({ 
+        super({
             width: 800,
             height: 450,
             maxFps: 60,
-            displayMode: DisplayMode.FitScreen
-         })
+            displayMode: DisplayMode.FitScreen,
+            physics: {
+                solver: SolverStrategy.Arcade,
+                gravity: new Vector(0, 800),
+            }
+        })
+        this.showDebug(true)
         this.start(ResourceLoader).then(() => this.startGame())
     }
 
@@ -21,10 +28,19 @@ export class Game extends Engine {
         let background = new Background()
         this.add(background)
 
-        let tata = new Tata()
-        this.add(tata)
+        let taylor = new Taylor("Taylor")
+        this.add(taylor)
 
-        
+        for (let i=0;i < 5; i++) {
+            let brokenheart = new Brokenheart(Math.random() * 400 - 200)
+            this.add(brokenheart)
+        }
+
+        let ground = new Ground()
+        this.add(ground)
+
+
+
 
         // console.log("start de game!")
         // const fish = new Actor()
@@ -35,9 +51,16 @@ export class Game extends Engine {
         // this.add(fish)
     }
 
-    // fishLeft(e) {
-    //     e.target.pos = new Vector(1350, 300)
-    // }
+    gameOver(){
+         for(let actor of this.currentScene.actors) {
+            console.log("Game over")
+           actor.kill()
+        }
+
+         this.startGame()
+
+    }
+
 }
 
 new Game()

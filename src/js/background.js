@@ -3,27 +3,28 @@ import { Resources } from './resources.js'
 
 export class Background extends Actor {
 
-    // sprite
+    sprite
 
     constructor(){
         super()
 
         this.graphics.use(Resources.Background.toSprite())
-        this.pos = new Vector(400, 450/2)
-        this.scale = new Vector(0.5, 0.4)
+         this.anchor = new Vector(0,0)
+        // this.pos = new Vector(400, 450/2)
+        // this.scale = new Vector(0.6, 0.6)
     }
     
 
-    //  onInitialize(engine){
-    //     this.sprite = new Sprite({
-    //         image: Resources.Background,
-    //         sourceView: { x: 0, y: 0, width: engine.drawWidth, height: engine.drawHeight }
-    //     })
-    //     this.anchor = Vector.Zero
-    //     this.graphics.use(this.sprite)
-    // }
+     onInitialize(engine){
+        this.sprite = new Sprite({
+            image: Resources.Background,
+            sourceView: { x: 0, y: 0, width: engine.drawWidth, height: engine.drawHeight }
+        })
+        this.anchor = Vector.Zero
+        this.graphics.use(this.sprite)
+    }
 
-    // onPostUpdate(engine, delta) {
-    //     this.sprite.sourceView.x += .05 * delta;
-    // }
+    onPostUpdate(engine, delta) {
+        this.sprite.sourceView.x += .05 * delta;
+    }
 }
