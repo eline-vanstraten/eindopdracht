@@ -5,8 +5,13 @@ import { Background } from './background.js'
 import { Taylor } from './taylor.js'
 import { Brokenheart } from './brokenheart.js'
 import { Ground } from './ground.js'
+import { UI } from './ui.js'
 
 export class Game extends Engine {
+
+    heartCooldown
+    heartCounter
+    ui
 
     constructor() {
         super({
@@ -31,33 +36,41 @@ export class Game extends Engine {
         let taylor = new Taylor("Taylor")
         this.add(taylor)
 
-        for (let i=0;i < 5; i++) {
-            let brokenheart = new Brokenheart(Math.random() * 400 - 200)
-            this.add(brokenheart)
-        }
-
         let ground = new Ground()
         this.add(ground)
 
 
+        this.heartCounter = 0 
+        this.heartCooldown = 120
 
 
-        // console.log("start de game!")
-        // const fish = new Actor()
-        // fish.graphics.use(Resources.Fish.toSprite())
-        // fish.pos = new Vector(500, 300)
-        // fish.vel = new Vector(-10,0)
-        // fish.events.on("exitviewport", (e) => this.fishLeft(e))
-        // this.add(fish)
+        this.ui = new UI()
+        this.add(this.ui)
+
     }
 
-    gameOver(){
-         for(let actor of this.currentScene.actors) {
+    onPostUpdate(){
+        this.heartCounter++
+        if(this.heartCounter > this.heartCooldown){
+
+            this.addHeart()
+            this.heartCounter = 0   
+            this.heartCooldown = 60 + Math.random() * 60     
+        }
+    }
+
+    addHeart() {
+        let brokenheart = new Brokenheart(Math.random() * 400 - 200)
+        this.add(brokenheart)
+    }
+
+    gameOver() {
+        for (let actor of this.currentScene.actors) {
             console.log("Game over")
-           actor.kill()
+            actor.kill()
         }
 
-         this.startGame()
+        this.startGame()
 
     }
 

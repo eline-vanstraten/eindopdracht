@@ -10,8 +10,6 @@ export class Background extends Actor {
 
         this.graphics.use(Resources.Background.toSprite())
          this.anchor = new Vector(0,0)
-        // this.pos = new Vector(400, 450/2)
-        // this.scale = new Vector(0.6, 0.6)
     }
     
 
