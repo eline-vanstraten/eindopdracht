@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, SolverStrategy, Label, Font, FontUnit, Color } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Background } from './background.js'
 import { Taylor } from './taylor.js'
@@ -40,7 +40,7 @@ export class Game extends Engine {
         this.add(ground)
 
 
-        this.heartCounter = 0 
+        this.heartCounter = 0
         this.heartCooldown = 120
 
 
@@ -49,13 +49,13 @@ export class Game extends Engine {
 
     }
 
-    onPostUpdate(){
+    onPostUpdate() {
         this.heartCounter++
-        if(this.heartCounter > this.heartCooldown){
+        if (this.heartCounter > this.heartCooldown) {
 
             this.addHeart()
-            this.heartCounter = 0   
-            this.heartCooldown = 60 + Math.random() * 60     
+            this.heartCounter = 0
+            this.heartCooldown = 60 + Math.random() * 60
         }
     }
 
@@ -66,13 +66,45 @@ export class Game extends Engine {
 
     gameOver() {
         for (let actor of this.currentScene.actors) {
-            console.log("Game over")
-            actor.kill()
-        }
+        console.log("Game over")
+         actor.kill()
+         }
+
 
         this.startGame()
 
+        // this.clearScreen()
+
+        // const gameOverLabel = new Label({
+        //     text: "Game Over",
+        //     pos: new Vector(400, 200),
+        //     font: new Font({
+        //         family: "Arial",
+        //         size: 40,
+        //         unit: FontUnit.Px,
+        //         color: Color.Red
+        //     }),
+        //     anchor: Vector.Half
+        // });
+
+        // this.add(gameOverLabel)
+
+        // this.input.keyboard.on("press", (evt) => {
+        //     if (evt.key === "Enter") {
+        //         this.clearScreen()
+        //         this.startGame()
+        //     }
+
+        // });
+       
+
     }
+
+    //  clearScreen() {
+    //     for (const actor of this.currentScene.actors) {
+    //         actor.kill();
+    //     }
+    //     }
 
 }
 
