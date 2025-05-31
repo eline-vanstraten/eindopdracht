@@ -26,9 +26,10 @@ export class Brokenheart extends Actor {
     }
 
     wasHitByTaylor(){
-        console.log('i was hit by taylor')
+        console.log('i was hit by taylor, heart')
         this.kill()
     }
+    
 
 
 }

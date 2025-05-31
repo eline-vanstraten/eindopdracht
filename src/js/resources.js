@@ -5,7 +5,8 @@ const Resources = {
     Background: new ImageSource('images/background.png', { wrapping: ImageWrapping.Repeat}),
     Taylor: new ImageSource('images/taylor.png'),
     Brokenheart: new ImageSource('images/brokenheart.png'),
-    Ground: new ImageSource('images/ground.png')
+    Ground: new ImageSource('images/ground.png'),
+    Scarf: new ImageSource('images/scarf.png')
 }
 
 

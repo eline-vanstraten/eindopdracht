@@ -1,11 +1,14 @@
 import { Actor, Vector, Keys, CollisionType, DegreeOfFreedom } from "excalibur"
 import { Resources } from './resources.js'
 import { Brokenheart } from './brokenheart.js'
+import { Scarf } from './scarf.js'
+import { Ground } from './ground.js'
 
 export class Taylor extends Actor {
 
     name
     lives
+    onGround
 
     constructor(name) {
         super({ width: Resources.Taylor.width, height: Resources.Taylor.height, collisionType: CollisionType.Active })
@@ -19,10 +22,16 @@ export class Taylor extends Actor {
 
         this.name = name
         this.lives = 3
+        this.onGround = false
     }
 
     onInitialize(engine) {
         this.on('collisionstart', (event) => this.hitHeart(event))
+        this.on('collisionstart', (event) => this.hitScarf(event))
+
+        this.on('collisionstart', (event) => this.hitGround(event))
+         this.on('collisionend', (event) => this.leaveGround(event))
+
     }
 
     hitHeart(event) {
@@ -34,24 +43,49 @@ export class Taylor extends Actor {
             event.other.owner.wasHitByTaylor()
 
             console.log(`Lives: ${this.lives}`)
-            // //game aanroepen
-            // this.scene.engine.ui.showScore(this.player, this.score)
             if (this.lives <= 0) {
                 this.scene.engine.gameOver()
+            }
+
+            if (this.lives < 3 ) {
+                this.scene.engine.addScarf()
+            }
+
+             if(this.lives === 0){
+                this.scene.engine.scarf.deleteScarf()
             }
 
         }
     }
 
 
+    hitScarf(event) {
+        if (event.other.owner instanceof Scarf) {
+            console.log(`${this.name} hits a scarf`)
+            this.lives++
+            this.scene.engine.ui.showLives(this.lives)
+            event.other.owner.isHitByTaylor()
+        }
 
-    // }
+    }
+
+    hitGround(event){
+        if(event.other.owner instanceof Ground){
+            this.onGround = true
+        }
+    }
+
+    leaveGround(event){
+        if(event.other.owner instanceof Ground){
+            this.onGround = false
+        }
+    }
 
 
 
     onPreUpdate(engine, delta) {
 
-        if (engine.input.keyboard.wasPressed(Keys.Up)) {
+        if (engine.input.keyboard.wasPressed(Keys.Up) && this.onGround) {
 
             this.body.applyLinearImpulse(new Vector(0, -300 * delta))
         }

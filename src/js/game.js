@@ -6,6 +6,7 @@ import { Taylor } from './taylor.js'
 import { Brokenheart } from './brokenheart.js'
 import { Ground } from './ground.js'
 import { UI } from './ui.js'
+import { Scarf } from './scarf.js'
 
 export class Game extends Engine {
 
@@ -33,8 +34,8 @@ export class Game extends Engine {
         let background = new Background()
         this.add(background)
 
-        let taylor = new Taylor("Taylor")
-        this.add(taylor)
+        this.taylor = new Taylor("Taylor")
+        this.add(this.taylor)
 
         let ground = new Ground()
         this.add(ground)
@@ -47,7 +48,14 @@ export class Game extends Engine {
         this.ui = new UI()
         this.add(this.ui)
 
+
     }
+
+    addScarf() {
+            this.scarf = new Scarf(800, 200)
+            this.add(this.scarf)
+    }
+
 
     onPostUpdate() {
         this.heartCounter++
@@ -66,9 +74,9 @@ export class Game extends Engine {
 
     gameOver() {
         for (let actor of this.currentScene.actors) {
-        console.log("Game over")
-         actor.kill()
-         }
+            console.log("Game over")
+            actor.kill()
+        }
 
 
         this.startGame()
@@ -96,7 +104,7 @@ export class Game extends Engine {
         //     }
 
         // });
-       
+
 
     }
 
