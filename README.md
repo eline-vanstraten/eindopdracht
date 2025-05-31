@@ -1,25 +1,10 @@
-# Excalibur Startproject 2025
+# Eindopdracht prg4. Eigen game
 
-- Vanaf de HR repository: klik op ***USE THIS TEMPLATE***. Kies jouw eigen github account. 
-- Kopieer de `git url` van jouw eigen repository (dit vind je onder de "code" button).
-- Open VS Code. Klik op "file" en kies "clone repository".
-- Npm start Vite met een eigen webserver, dus sla het project NIET op in je XAMPP of HERD folder waar al een webserver draait.
-- Typ `npm install` en `npm run dev` in de terminal in VS Code.
-- Installeer de [Chrome Excalibur Debugger](https://chromewebstore.google.com/detail/excalibur-dev-tools/dinddaeielhddflijbbcmpefamfffekc)
-- [Bekijk het instructie filmpje!](https://youtu.be/UIVpe4L5_P4)
+### All Too Well - Een endless runner game
 
-### Kies een resolutie
+Je speelt als Taylor die zichzelf probeert terug te krijgen na een heartbreak. 
+Ontwijk de gebroken hartjes door met het pijltje omhoog te springen om zo een zo hoog mogelijke score te krijgen. 
+Raak je een hartje verlies je een leven en komt er een mogelijkheid om het leven terug te krijgen. Er komt een rode sjaal voorbij wat een stukje van haarzelf representeert. Verzamel die en je krijgt je verloren leven weer terug.
+Je hebt 3 levens.
 
-***widescreen 16/9***
-- 640 × 360
-- 800 x 450
-- 1280 x 720
-
-***retro 4/3***
-- 512 × 384
-- 640 × 480
-- 800 × 600
-
-### Bewerk deze readme file
-
-Verwijder deze instructies, plaats hier een beschrijving van jouw game.
+Veel speel plezier! 
