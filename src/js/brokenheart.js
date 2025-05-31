@@ -16,17 +16,16 @@ export class Brokenheart extends Actor {
         this.pos = new Vector(x, y)
         this.vel = new Vector(-200, 0)
 
-        this.events.on("exitviewport", (e) => this.brokenheartLeft(e))
+        this.events.on("exitviewport", (e) => this.#brokenheartLeft(e))
 
 
     }
 
-    brokenheartLeft(e) {
+    #brokenheartLeft(e) {
        this.kill()
     }
 
     wasHitByTaylor(){
-        console.log('i was hit by taylor, heart')
         this.kill()
     }
     

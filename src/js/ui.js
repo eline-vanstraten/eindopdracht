@@ -2,19 +2,19 @@ import { Actor, Vector, Label, Font, Color, FontUnit } from "excalibur"
 
 export class UI extends Actor {
 
-    scoreCounter
-    frameCounter
-    scoreLabel
-    livesLabel
+    #scoreCounter
+    #frameCounter
+    #scoreLabel
+    #livesLabel
     
 
     constructor() {
         super()
 
-        this.scoreCounter = 0
-        this.frameCounter = 0
+        this.#scoreCounter = 0
+        this.#frameCounter = 0
 
-        this.scoreLabel = new Label({
+        this.#scoreLabel = new Label({
             text: 'Score: 0',
             pos: new Vector(100, 80),
             font: new Font({
@@ -25,10 +25,10 @@ export class UI extends Actor {
             })
         })
 
-        this.addChild(this.scoreLabel)
+        this.addChild(this.#scoreLabel)
 
 
-         this.livesLabel = new Label({
+         this.#livesLabel = new Label({
             text: 'Lives: 3',
             pos: new Vector(600, 60),
             font: new Font({
@@ -39,24 +39,23 @@ export class UI extends Actor {
             })
         })
 
-        this.addChild(this.livesLabel)
+        this.addChild(this.#livesLabel)
 
 
     }
 
     onPostUpdate() {
-        this.frameCounter++
-        if (this.frameCounter > 120) {
-            console.log("2 seconden verstreken")
-            this.frameCounter = 0
-            this.scoreCounter++
-            this.scoreLabel.text = `Score: ${this.scoreCounter}`
+        this.#frameCounter++
+        if (this.#frameCounter > 120) {
+            this.#frameCounter = 0
+            this.#scoreCounter++
+            this.#scoreLabel.text = `Score: ${this.#scoreCounter}`
             
         }
     }
 
     showLives(lives){
-        this.livesLabel.text = `Lives: ${lives}`
+        this.#livesLabel.text = `Lives: ${lives}`
 
     }
 

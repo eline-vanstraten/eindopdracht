@@ -13,12 +13,10 @@ export class Scarf extends Actor {
     }
 
      isHitByTaylor(){
-        console.log('i was hit by taylor, scarf')
         this.kill()
     }
 
     deleteScarf(){
-        console.log("game over, scarf deletes")
         this.kill()
     }
     

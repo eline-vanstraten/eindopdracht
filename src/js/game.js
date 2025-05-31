@@ -1,6 +1,6 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode, SolverStrategy, Label, Font, FontUnit, Color } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
+import { Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
+import { ResourceLoader } from './resources.js'
 import { Background } from './background.js'
 import { Taylor } from './taylor.js'
 import { Brokenheart } from './brokenheart.js'
@@ -10,8 +10,11 @@ import { Scarf } from './scarf.js'
 
 export class Game extends Engine {
 
-    heartCooldown
-    heartCounter
+    taylor
+    brokenheart
+    scarf
+    #heartCooldown
+    #heartCounter
     ui
 
     constructor() {
@@ -25,7 +28,7 @@ export class Game extends Engine {
                 gravity: new Vector(0, 800),
             }
         })
-        this.showDebug(true)
+        // this.showDebug(true)
         this.start(ResourceLoader).then(() => this.startGame())
     }
 
@@ -40,10 +43,8 @@ export class Game extends Engine {
         let ground = new Ground()
         this.add(ground)
 
-
-        this.heartCounter = 0
-        this.heartCooldown = 120
-
+        this.#heartCounter = 0
+        this.#heartCooldown = 120
 
         this.ui = new UI()
         this.add(this.ui)
@@ -58,18 +59,18 @@ export class Game extends Engine {
 
 
     onPostUpdate() {
-        this.heartCounter++
-        if (this.heartCounter > this.heartCooldown) {
+        this.#heartCounter++
+        if (this.#heartCounter > this.#heartCooldown) {
 
-            this.addHeart()
-            this.heartCounter = 0
-            this.heartCooldown = 60 + Math.random() * 60
+            this.#addHeart()
+            this.#heartCounter = 0
+            this.#heartCooldown = 60 + Math.random() * 60
         }
     }
 
-    addHeart() {
-        let brokenheart = new Brokenheart(Math.random() * 400 - 200)
-        this.add(brokenheart)
+    #addHeart() {
+        this.brokenheart = new Brokenheart(Math.random() * 400 - 200)
+        this.add(this.brokenheart)
     }
 
     gameOver() {
@@ -78,41 +79,8 @@ export class Game extends Engine {
             actor.kill()
         }
 
-
         this.startGame()
-
-        // this.clearScreen()
-
-        // const gameOverLabel = new Label({
-        //     text: "Game Over",
-        //     pos: new Vector(400, 200),
-        //     font: new Font({
-        //         family: "Arial",
-        //         size: 40,
-        //         unit: FontUnit.Px,
-        //         color: Color.Red
-        //     }),
-        //     anchor: Vector.Half
-        // });
-
-        // this.add(gameOverLabel)
-
-        // this.input.keyboard.on("press", (evt) => {
-        //     if (evt.key === "Enter") {
-        //         this.clearScreen()
-        //         this.startGame()
-        //     }
-
-        // });
-
-
     }
-
-    //  clearScreen() {
-    //     for (const actor of this.currentScene.actors) {
-    //         actor.kill();
-    //     }
-    //     }
 
 }
 

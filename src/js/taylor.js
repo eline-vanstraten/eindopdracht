@@ -6,43 +6,40 @@ import { Ground } from './ground.js'
 
 export class Taylor extends Actor {
 
-    name
+    #name
     lives
-    onGround
+    #onGround
 
     constructor(name) {
         super({ width: Resources.Taylor.width, height: Resources.Taylor.height, collisionType: CollisionType.Active })
 
-        console.log("I am Taylor")
         this.graphics.use(Resources.Taylor.toSprite())
         this.pos = new Vector(200, 200)
 
         this.scale = new Vector(0.1, 0.1)
         this.body.limitDegreeOfFreedom.push(DegreeOfFreedom.Rotation)
 
-        this.name = name
+        this.#name = name
         this.lives = 3
-        this.onGround = false
+        this.#onGround = false
     }
 
     onInitialize(engine) {
-        this.on('collisionstart', (event) => this.hitHeart(event))
-        this.on('collisionstart', (event) => this.hitScarf(event))
+        this.on('collisionstart', (event) => this.#hitHeart(event))
+        this.on('collisionstart', (event) => this.#hitScarf(event))
 
-        this.on('collisionstart', (event) => this.hitGround(event))
-         this.on('collisionend', (event) => this.leaveGround(event))
+        this.on('collisionstart', (event) => this.#hitGround(event))
+         this.on('collisionend', (event) => this.#leaveGround(event))
 
     }
 
-    hitHeart(event) {
+    #hitHeart(event) {
         if (event.other.owner instanceof Brokenheart) {
-            console.log(`${this.name} hits a heart`)
 
             this.lives--
             this.scene.engine.ui.showLives(this.lives)
             event.other.owner.wasHitByTaylor()
 
-            console.log(`Lives: ${this.lives}`)
             if (this.lives <= 0) {
                 this.scene.engine.gameOver()
             }
@@ -59,9 +56,8 @@ export class Taylor extends Actor {
     }
 
 
-    hitScarf(event) {
+    #hitScarf(event) {
         if (event.other.owner instanceof Scarf) {
-            console.log(`${this.name} hits a scarf`)
             this.lives++
             this.scene.engine.ui.showLives(this.lives)
             event.other.owner.isHitByTaylor()
@@ -69,15 +65,15 @@ export class Taylor extends Actor {
 
     }
 
-    hitGround(event){
+    #hitGround(event){
         if(event.other.owner instanceof Ground){
-            this.onGround = true
+            this.#onGround = true
         }
     }
 
-    leaveGround(event){
+    #leaveGround(event){
         if(event.other.owner instanceof Ground){
-            this.onGround = false
+            this.#onGround = false
         }
     }
 
@@ -85,7 +81,7 @@ export class Taylor extends Actor {
 
     onPreUpdate(engine, delta) {
 
-        if (engine.input.keyboard.wasPressed(Keys.Up) && this.onGround) {
+        if (engine.input.keyboard.wasPressed(Keys.Up) && this.#onGround) {
 
             this.body.applyLinearImpulse(new Vector(0, -300 * delta))
         }

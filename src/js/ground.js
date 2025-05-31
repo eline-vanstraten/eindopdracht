@@ -1,4 +1,4 @@
-import { Actor, Vector, Sprite, CollisionType } from "excalibur"
+import { Actor, Vector, CollisionType } from "excalibur"
 
 export class Ground extends Actor {
 
